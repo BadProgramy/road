@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import quality.control.road.model.Role;
@@ -21,13 +22,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity config) throws Exception {
-        config.headers().cacheControl().disable().disable()
+        config.csrf().disable().headers().cacheControl().disable().disable()
                 .authorizeRequests()
                 .antMatchers("/api/internal/**").hasAnyAuthority(Role.ADMIN.getAuthority(), Role.DEVELOPER.getAuthority())
                 .and()
-                .formLogin().loginProcessingUrl("/login").permitAll()
-                .and()
-                .logout().logoutUrl("/logout").permitAll().invalidateHttpSession(true).permitAll();
+                .httpBasic();
+        config.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Autowired
