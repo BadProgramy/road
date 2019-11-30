@@ -1,5 +1,8 @@
 package quality.control.road.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,29 +15,23 @@ import quality.control.road.repository.UserRepository;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.logging.Logger;
 
 @Service
 public class UserService implements UserDetailsService {
 
+    public final Logger logger = LoggerFactory.getLogger(UserService.class);
+
+    @Autowired
     private UserRepository userRepository;
+
+    public void save(User user) {
+        userRepository.save(user);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //User user = userRepository.findUserByName(username);
-        System.out.println("Идет создание user, пришел = " + username);
-        User user = User.builder()
-                .id(1L)
-                .accountNonExpired(true)
-                .accountNonLocked(true)
-                .credentialsNonExpired(true)
-                .enabled(true)
-                .firstname("Имя")
-                .secondname("Фамилие")
-                .password(new BCryptPasswordEncoder().encode("admin"))
-                .role(Arrays.asList(Role.ADMIN, Role.DEVELOPER))
-                .username("admin")
-                .build();
+        User user = userRepository.findUserByName(username);
+        logger.info("Найден такой user" + user);
         if (user!=null) return user;
         else throw new UsernameNotFoundException("Пользователь " + username + " не был найден!");
     }
