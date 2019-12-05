@@ -23,9 +23,9 @@ public class CityController {
 
     @GetMapping("/city")
     @ApiOperation("get all city")
-    private List<CityResponse> getAll() {
+    public List<CityResponse> getAll() {
         return StreamSupport.stream(cityRepository.findAll().spliterator(), false)
-                .map(it -> new CityResponse(it.getName()))
+                .map(it -> new CityResponse(it.getId(), it.getName()))
                 .collect(Collectors.toList());
     }
 }

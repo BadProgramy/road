@@ -6,15 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import quality.control.road.model.Role;
 import quality.control.road.model.User;
+import quality.control.road.model.init_data.UserData;
 import quality.control.road.repository.UserRepository;
-
-import java.awt.*;
-import java.util.Arrays;
-import java.util.Collections;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -30,7 +25,8 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByName(username);
+        //User user = userRepository.findByUsername(username);
+        User user = UserData.user;
         logger.info("Найден такой user" + user);
         if (user!=null) return user;
         else throw new UsernameNotFoundException("Пользователь " + username + " не был найден!");

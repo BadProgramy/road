@@ -13,6 +13,7 @@ import java.util.Arrays;
 public class UserData {
 
     private final UserRepository userRepository;
+    public static User user;
 
     public UserData(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -28,6 +29,7 @@ public class UserData {
                 .username("admin")
                 .build();
         user.unBlockAccount();
+        UserData.user = user;
         userRepository.save(user);
     }
 }

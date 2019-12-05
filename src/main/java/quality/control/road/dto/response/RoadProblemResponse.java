@@ -1,5 +1,6 @@
 package quality.control.road.dto.response;
 
+import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,10 +13,14 @@ import java.time.ZonedDateTime;
 @Data
 @Builder
 public class RoadProblemResponse {
+    @ApiParam(value = "Идентификатор")
     private Long id;
+    @ApiParam(value = "Заглавие")
     private String title;
+    @ApiParam(value = "Описание")
     private String description;
-    private Double hight;
-    private Double width;
+    @ApiParam(value = "Геолокация")
+    private GeoLocationResponse locationResponse;
+    @ApiParam(value = "Дата создания")
     private ZonedDateTime createdAt;
 }

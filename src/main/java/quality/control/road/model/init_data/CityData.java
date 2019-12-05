@@ -1,5 +1,6 @@
 package quality.control.road.model.init_data;
 
+import java.util.Arrays;
 import quality.control.road.model.City;
 import quality.control.road.repository.CityRepository;
 import org.springframework.stereotype.Component;
@@ -27,10 +28,19 @@ public class CityData {
     }
 
     private void filledCity() {
-        cityList.add(
-                City.builder()
+        cityList.addAll(
+                Arrays.asList(City.builder()
                         .name("Самара")
-                        .build()
+                        .build(),
+                        City.builder()
+                                .name("Москва")
+                                .build(),
+                        City.builder()
+                                .name("Тольяти")
+                                .build(),
+                        City.builder()
+                                .name("Шентала")
+                                .build())
         );
     }
 }

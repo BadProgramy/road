@@ -11,8 +11,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfiguration {
-    private static final  String SWAGGER_API_VERSION = "1.0.0";
-    private static final  String LICENSE_TEXT = "License";
+    private static final String SWAGGER_API_VERSION = "1.0.0";
+    private static final String LICENSE_TEXT = "License";
     private static final String title = "Road API";
     private static final String description = "API for Properties.";
 
@@ -29,9 +29,7 @@ public class SwaggerConfiguration {
     public Docket organizationsApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                //.pathMapping("/organization")
                 .select()
-                //.paths(regex("/api.*"))
                 .build();
     }
 }
